@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+service Proxy {
+    rpc FrontendEndpoint(HttpRequestWrapper) returns (HttpResponseWrapper) {}
+    rpc BackendReceive (Connection) returns (stream HttpRequestWrapper){}
+    rpc BackendSend(stream HttpResponseWrapper) returns (Null) {}
+}
+
+message Null {
+}
+
+message Connection {
+    string DeveloperName = 1;
+    string Domain = 2;
+}
+
+message HttpRequestWrapper {
+    string HttpMethod = 1;
+    bytes Body = 2;
+    map<string, HttpHeader> Headers = 3;
+    string HttpRequestURL = 4;
+    string ConnectionId = 5;
+    string Domain = 6;
+}
+
+message HttpHeader {
+    string Key = 1;
+    repeated string Value = 2;
+}
+
+message HttpResponseWrapper {
+    bytes Body = 1;
+    map<string, HttpHeader> Headers = 2;
+    int32 Status = 3;
+    string ConnectionId = 4;
+}
