@@ -17,7 +17,7 @@ func NewBackendConnecterConfig() *BackendConnecterConfig {
 	return &BackendConnecterConfig{
 		RelayServerConfig: RelayServerConfig{
 			Host: getenv.String("RELAY_SERVER_HOST"),
-			Port: getenv.String("RELAY_SERVER_PORT"),
+			Port: getenv.String("RELAY_SERVER_PORT", "20000"),
 		},
 		BackendHostName: getenv.String("BACKEND_HOST_NAME"),
 		Scheme:          getenv.String("BACKEND_SCHEME", "http"),
@@ -33,7 +33,7 @@ type RelayServerConfig struct {
 func NewRelayServerConfig() *RelayServerConfig {
 	return &RelayServerConfig{
 		Host: getenv.String("RELAY_SERVER_HOST"),
-		Port: getenv.String("RELAY_SERVER_PORT"),
+		Port: getenv.String("RELAY_SERVER_PORT", "20000"),
 	}
 }
 
@@ -59,6 +59,7 @@ func NewClientConfig() *ClientConfig {
 			Host: getenv.String("RELAY_SERVER_HOST"),
 			Port: getenv.String("RELAY_SERVER_PORT"),
 		},
+		EnableTLS:          getenv.Bool("ENABLE_TLS"),
 		ProxyPort:          getenv.String("PROXY_PORT"),
 		SslCertFileName:    getenv.String("SSL_CERT_FILE_NAME"),
 		SslCertKeyFileName: getenv.String("SSL_CERT_KEY_FILE_NAME"),
