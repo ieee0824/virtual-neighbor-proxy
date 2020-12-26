@@ -55,8 +55,8 @@ func main() {
 		connectionID := uuid.New().String()
 		log.Debug().
 			Str("connection_id", connectionID).
-			Str("http_method", ctx.Request.Method)
-		Msg("")
+			Str("http_method", ctx.Request.Method).
+			Msg("")
 		client := remote.NewProxyClient(conn)
 		message := &remote.HttpRequestWrapper{
 			HttpMethod:     ctx.Request.Method,
