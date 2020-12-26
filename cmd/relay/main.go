@@ -3,15 +3,15 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"net"
 
+	"github.com/ieee0824/virtual-neighbor-proxy/config"
 	"github.com/ieee0824/virtual-neighbor-proxy/remote"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 )
-
-const defaultPort = ":20000"
 
 type ConnectionID string
 type Domain string
@@ -92,11 +92,13 @@ func (s *RelayServer) BackendSend(stream remote.Proxy_BackendSendServer) error {
 	}
 }
 
+var defaultConfig = config.NewRelayServerConfig()
+
 func main() {
 	log.Logger = log.With().Caller().Logger()
 	log.Info().Msg("start")
 
-	con, err := net.Listen("tcp", defaultPort)
+	con, err := net.Listen("tcp", fmt.Sprintf(":%s", defaultConfig.Port))
 	if err != nil {
 		log.Fatal().Err(err).Msg("")
 	}

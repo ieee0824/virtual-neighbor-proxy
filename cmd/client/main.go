@@ -7,10 +7,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/ieee0824/virtual-neighbor-proxy/config"
 	"github.com/ieee0824/virtual-neighbor-proxy/remote"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 )
+
+var defaultConfig = config.NewClientConfig()
 
 func main() {
 	log.Logger = log.With().Caller().Logger()
@@ -20,15 +23,19 @@ func main() {
 
 	r.Any("*all", func(ctx *gin.Context) {
 		defer ctx.Request.Body.Close()
-		conn, err := grpc.Dial("127.0.0.1:20000", grpc.WithInsecure())
+		conn, err := grpc.Dial(defaultConfig.RelayServerConfig.Addr(), grpc.WithInsecure())
 		if err != nil {
 			log.Fatal().Err(err).Msg("")
 		}
 
 		defer conn.Close()
 		u := ctx.Request.URL
-		u.Host = "localhost:8081"
-		u.Scheme = "http"
+		u.Host = ctx.Request.Host
+		if defaultConfig.EnableTLS {
+			u.Scheme = "https"
+		} else {
+			u.Scheme = "http"
+		}
 
 		body := []byte{}
 		if ctx.Request.Method != http.MethodGet {
@@ -47,7 +54,7 @@ func main() {
 			HttpRequestURL: u.String(),
 			Body:           body,
 			ConnectionId:   connectionID,
-			Domain:         "localhost:8081",
+			Domain:         ctx.Request.Host,
 			Headers:        map[string]*remote.HttpHeader{},
 		}
 
@@ -76,5 +83,17 @@ func main() {
 		ctx.Writer.Write(resp.GetBody())
 	})
 
-	r.Run(":8080")
+	if defaultConfig.EnableTLS {
+		if err := r.RunTLS(
+			defaultConfig.Addr(),
+			defaultConfig.SslCertFileName,
+			defaultConfig.SslCertKeyFileName,
+		); err != nil {
+			log.Fatal().Err(err).Msg("")
+		}
+	} else {
+		if err := r.Run(defaultConfig.Addr()); err != nil {
+			log.Fatal().Err(err).Msg("")
+		}
+	}
 }

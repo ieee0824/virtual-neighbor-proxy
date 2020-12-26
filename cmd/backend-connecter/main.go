@@ -8,12 +8,13 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/ieee0824/virtual-neighbor-proxy/config"
 	"github.com/ieee0824/virtual-neighbor-proxy/remote"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 )
 
-var defaultPort = ":20000"
+var defaultConfig = config.NewBackendConnecterConfig()
 
 func connect(client remote.ProxyClient, connectionOpts *remote.Connection) error {
 	stream, err := client.BackendReceive(context.Background(), connectionOpts)
@@ -48,8 +49,8 @@ func connect(client remote.ProxyClient, connectionOpts *remote.Connection) error
 			return err
 		}
 
-		u.Host = "localhost:8081"
-		u.Scheme = "http"
+		u.Host = defaultConfig.BackendHostName
+		u.Scheme = defaultConfig.Scheme
 
 		var req *http.Request
 		if reqWrapper.GetHttpMethod() == http.MethodGet {
@@ -84,8 +85,6 @@ func connect(client remote.ProxyClient, connectionOpts *remote.Connection) error
 		}
 		resp.Body.Close()
 
-		// api requestする
-		// wrapperにわたす
 		respWrapper := &remote.HttpResponseWrapper{
 			ConnectionId: reqWrapper.ConnectionId,
 			Status:       int32(resp.StatusCode),
@@ -113,7 +112,7 @@ func connect(client remote.ProxyClient, connectionOpts *remote.Connection) error
 func main() {
 	log.Logger = log.With().Caller().Logger()
 	log.Info().Msg("start")
-	conn, err := grpc.Dial("localhost:20000", grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(defaultConfig.RelayServerConfig.Addr(), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatal().Err(err).Msg("")
 	}
@@ -122,8 +121,8 @@ func main() {
 	client := remote.NewProxyClient(conn)
 
 	if err := connect(client, &remote.Connection{
-		Domain:        "localhost:8081",
-		DeveloperName: "test developer",
+		Domain:        defaultConfig.BackendHostName,
+		DeveloperName: defaultConfig.DeveloperName,
 	}); err != nil {
 		log.Fatal().Err(err).Msg("")
 	}
