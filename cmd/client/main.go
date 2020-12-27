@@ -23,12 +23,7 @@ func main() {
 
 	r.Any("*all", func(ctx *gin.Context) {
 		defer ctx.Request.Body.Close()
-		// websocketを無視
-		if h := ctx.Request.Header.Get("Upgrade"); h != "" {
-			ctx.JSON(http.StatusHTTPVersionNotSupported, nil)
-			ctx.Abort()
-			return
-		}
+
 		conn, err := grpc.Dial(defaultConfig.RelayServerConfig.Addr(), grpc.WithInsecure())
 		if err != nil {
 			log.Fatal().Err(err).Msg("")
@@ -41,6 +36,13 @@ func main() {
 			u.Scheme = "https"
 		} else {
 			u.Scheme = "http"
+		}
+		if h := ctx.Request.Header.Get("Upgrade"); h != "" {
+			if defaultConfig.EnableTLS {
+				u.Scheme = "wss"
+			} else {
+				u.Scheme = "ws"
+			}
 		}
 
 		body := []byte{}
