@@ -24,6 +24,12 @@ func main() {
 	r.Any("*all", func(ctx *gin.Context) {
 		defer ctx.Request.Body.Close()
 
+		if h := ctx.Request.Header.Get("Upgrade"); h != "" {
+			ctx.JSON(http.StatusBadRequest, "unsupported websocket")
+			ctx.Abort()
+			return
+		}
+
 		conn, err := grpc.Dial(defaultConfig.RelayServerConfig.Addr(), grpc.WithInsecure())
 		if err != nil {
 			log.Fatal().Err(err).Msg("")

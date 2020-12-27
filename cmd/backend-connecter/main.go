@@ -27,6 +27,9 @@ func connect(client remote.ProxyClient, connectionOpts *remote.Connection) error
 		if err == io.EOF {
 			return nil
 		}
+		if err != nil {
+			return err
+		}
 
 		headers := http.Header{}
 		for _, h := range reqWrapper.GetHeaders() {
