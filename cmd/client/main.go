@@ -56,6 +56,7 @@ func main() {
 		log.Debug().
 			Str("connection_id", connectionID).
 			Str("http_method", ctx.Request.Method).
+			Str("http_path", ctx.Request.URL.Path).
 			Msg("")
 		client := remote.NewProxyClient(conn)
 		message := &remote.HttpRequestWrapper{
