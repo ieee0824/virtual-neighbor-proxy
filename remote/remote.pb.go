@@ -29,6 +29,219 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
+type WebSocketConnecterRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConnectionId   string `protobuf:"bytes,1,opt,name=ConnectionId,proto3" json:"ConnectionId,omitempty"`
+	Disconnect     bool   `protobuf:"varint,2,opt,name=Disconnect,proto3" json:"Disconnect,omitempty"`
+	HttpMethod     string `protobuf:"bytes,3,opt,name=HttpMethod,proto3" json:"HttpMethod,omitempty"`
+	HttpRequestURL string `protobuf:"bytes,4,opt,name=HttpRequestURL,proto3" json:"HttpRequestURL,omitempty"`
+	Domain         string `protobuf:"bytes,5,opt,name=Domain,proto3" json:"Domain,omitempty"`
+}
+
+func (x *WebSocketConnecterRequest) Reset() {
+	*x = WebSocketConnecterRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_remote_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WebSocketConnecterRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WebSocketConnecterRequest) ProtoMessage() {}
+
+func (x *WebSocketConnecterRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_remote_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WebSocketConnecterRequest.ProtoReflect.Descriptor instead.
+func (*WebSocketConnecterRequest) Descriptor() ([]byte, []int) {
+	return file_remote_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *WebSocketConnecterRequest) GetConnectionId() string {
+	if x != nil {
+		return x.ConnectionId
+	}
+	return ""
+}
+
+func (x *WebSocketConnecterRequest) GetDisconnect() bool {
+	if x != nil {
+		return x.Disconnect
+	}
+	return false
+}
+
+func (x *WebSocketConnecterRequest) GetHttpMethod() string {
+	if x != nil {
+		return x.HttpMethod
+	}
+	return ""
+}
+
+func (x *WebSocketConnecterRequest) GetHttpRequestURL() string {
+	if x != nil {
+		return x.HttpRequestURL
+	}
+	return ""
+}
+
+func (x *WebSocketConnecterRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+type WebSocketConnecterResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConnectionId string `protobuf:"bytes,1,opt,name=ConnectionId,proto3" json:"ConnectionId,omitempty"`
+	Status       string `protobuf:"bytes,2,opt,name=Status,proto3" json:"Status,omitempty"`
+}
+
+func (x *WebSocketConnecterResponse) Reset() {
+	*x = WebSocketConnecterResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_remote_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WebSocketConnecterResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WebSocketConnecterResponse) ProtoMessage() {}
+
+func (x *WebSocketConnecterResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_remote_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WebSocketConnecterResponse.ProtoReflect.Descriptor instead.
+func (*WebSocketConnecterResponse) Descriptor() ([]byte, []int) {
+	return file_remote_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *WebSocketConnecterResponse) GetConnectionId() string {
+	if x != nil {
+		return x.ConnectionId
+	}
+	return ""
+}
+
+func (x *WebSocketConnecterResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type WebSocketPacket struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MessageType    int32  `protobuf:"varint,1,opt,name=MessageType,proto3" json:"MessageType,omitempty"`
+	Data           []byte `protobuf:"bytes,2,opt,name=Data,proto3" json:"Data,omitempty"`
+	ConnectionId   string `protobuf:"bytes,3,opt,name=ConnectionId,proto3" json:"ConnectionId,omitempty"`
+	MessageId      string `protobuf:"bytes,4,opt,name=MessageId,proto3" json:"MessageId,omitempty"`
+	HttpRequestURL string `protobuf:"bytes,5,opt,name=HttpRequestURL,proto3" json:"HttpRequestURL,omitempty"`
+}
+
+func (x *WebSocketPacket) Reset() {
+	*x = WebSocketPacket{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_remote_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WebSocketPacket) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WebSocketPacket) ProtoMessage() {}
+
+func (x *WebSocketPacket) ProtoReflect() protoreflect.Message {
+	mi := &file_remote_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WebSocketPacket.ProtoReflect.Descriptor instead.
+func (*WebSocketPacket) Descriptor() ([]byte, []int) {
+	return file_remote_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *WebSocketPacket) GetMessageType() int32 {
+	if x != nil {
+		return x.MessageType
+	}
+	return 0
+}
+
+func (x *WebSocketPacket) GetData() []byte {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *WebSocketPacket) GetConnectionId() string {
+	if x != nil {
+		return x.ConnectionId
+	}
+	return ""
+}
+
+func (x *WebSocketPacket) GetMessageId() string {
+	if x != nil {
+		return x.MessageId
+	}
+	return ""
+}
+
+func (x *WebSocketPacket) GetHttpRequestURL() string {
+	if x != nil {
+		return x.HttpRequestURL
+	}
+	return ""
+}
+
 type Null struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -38,7 +251,7 @@ type Null struct {
 func (x *Null) Reset() {
 	*x = Null{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_remote_proto_msgTypes[0]
+		mi := &file_remote_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -51,7 +264,7 @@ func (x *Null) String() string {
 func (*Null) ProtoMessage() {}
 
 func (x *Null) ProtoReflect() protoreflect.Message {
-	mi := &file_remote_proto_msgTypes[0]
+	mi := &file_remote_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +277,7 @@ func (x *Null) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Null.ProtoReflect.Descriptor instead.
 func (*Null) Descriptor() ([]byte, []int) {
-	return file_remote_proto_rawDescGZIP(), []int{0}
+	return file_remote_proto_rawDescGZIP(), []int{3}
 }
 
 type Connection struct {
@@ -79,7 +292,7 @@ type Connection struct {
 func (x *Connection) Reset() {
 	*x = Connection{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_remote_proto_msgTypes[1]
+		mi := &file_remote_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -92,7 +305,7 @@ func (x *Connection) String() string {
 func (*Connection) ProtoMessage() {}
 
 func (x *Connection) ProtoReflect() protoreflect.Message {
-	mi := &file_remote_proto_msgTypes[1]
+	mi := &file_remote_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -105,7 +318,7 @@ func (x *Connection) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Connection.ProtoReflect.Descriptor instead.
 func (*Connection) Descriptor() ([]byte, []int) {
-	return file_remote_proto_rawDescGZIP(), []int{1}
+	return file_remote_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Connection) GetDeveloperName() string {
@@ -138,7 +351,7 @@ type HttpRequestWrapper struct {
 func (x *HttpRequestWrapper) Reset() {
 	*x = HttpRequestWrapper{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_remote_proto_msgTypes[2]
+		mi := &file_remote_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -151,7 +364,7 @@ func (x *HttpRequestWrapper) String() string {
 func (*HttpRequestWrapper) ProtoMessage() {}
 
 func (x *HttpRequestWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_remote_proto_msgTypes[2]
+	mi := &file_remote_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -164,7 +377,7 @@ func (x *HttpRequestWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HttpRequestWrapper.ProtoReflect.Descriptor instead.
 func (*HttpRequestWrapper) Descriptor() ([]byte, []int) {
-	return file_remote_proto_rawDescGZIP(), []int{2}
+	return file_remote_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *HttpRequestWrapper) GetHttpMethod() string {
@@ -221,7 +434,7 @@ type HttpHeader struct {
 func (x *HttpHeader) Reset() {
 	*x = HttpHeader{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_remote_proto_msgTypes[3]
+		mi := &file_remote_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -234,7 +447,7 @@ func (x *HttpHeader) String() string {
 func (*HttpHeader) ProtoMessage() {}
 
 func (x *HttpHeader) ProtoReflect() protoreflect.Message {
-	mi := &file_remote_proto_msgTypes[3]
+	mi := &file_remote_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -247,7 +460,7 @@ func (x *HttpHeader) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HttpHeader.ProtoReflect.Descriptor instead.
 func (*HttpHeader) Descriptor() ([]byte, []int) {
-	return file_remote_proto_rawDescGZIP(), []int{3}
+	return file_remote_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *HttpHeader) GetKey() string {
@@ -278,7 +491,7 @@ type HttpResponseWrapper struct {
 func (x *HttpResponseWrapper) Reset() {
 	*x = HttpResponseWrapper{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_remote_proto_msgTypes[4]
+		mi := &file_remote_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -291,7 +504,7 @@ func (x *HttpResponseWrapper) String() string {
 func (*HttpResponseWrapper) ProtoMessage() {}
 
 func (x *HttpResponseWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_remote_proto_msgTypes[4]
+	mi := &file_remote_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -304,7 +517,7 @@ func (x *HttpResponseWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HttpResponseWrapper.ProtoReflect.Descriptor instead.
 func (*HttpResponseWrapper) Descriptor() ([]byte, []int) {
-	return file_remote_proto_rawDescGZIP(), []int{4}
+	return file_remote_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *HttpResponseWrapper) GetBody() []byte {
@@ -338,7 +551,36 @@ func (x *HttpResponseWrapper) GetConnectionId() string {
 var File_remote_proto protoreflect.FileDescriptor
 
 var file_remote_proto_rawDesc = []byte{
-	0x0a, 0x0c, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x06,
+	0x0a, 0x0c, 0x72, 0x65, 0x6d, 0x6f, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xbf,
+	0x01, 0x0a, 0x19, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e,
+	0x65, 0x63, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x22, 0x0a, 0x0c,
+	0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0c, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64,
+	0x12, 0x1e, 0x0a, 0x0a, 0x44, 0x69, 0x73, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x08, 0x52, 0x0a, 0x44, 0x69, 0x73, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74,
+	0x12, 0x1e, 0x0a, 0x0a, 0x48, 0x74, 0x74, 0x70, 0x4d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x48, 0x74, 0x74, 0x70, 0x4d, 0x65, 0x74, 0x68, 0x6f, 0x64,
+	0x12, 0x26, 0x0a, 0x0e, 0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x55,
+	0x52, 0x4c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x48, 0x74, 0x74, 0x70, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x55, 0x52, 0x4c, 0x12, 0x16, 0x0a, 0x06, 0x44, 0x6f, 0x6d, 0x61,
+	0x69, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x44, 0x6f, 0x6d, 0x61, 0x69, 0x6e,
+	0x22, 0x58, 0x0a, 0x1a, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e,
+	0x6e, 0x65, 0x63, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x22,
+	0x0a, 0x0c, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0xb1, 0x01, 0x0a, 0x0f, 0x57,
+	0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x20,
+	0x0a, 0x0b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x0b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65,
+	0x12, 0x12, 0x0a, 0x04, 0x44, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04,
+	0x44, 0x61, 0x74, 0x61, 0x12, 0x22, 0x0a, 0x0c, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x49, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x43, 0x6f, 0x6e, 0x6e,
+	0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x4d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x49, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x49, 0x64, 0x12, 0x26, 0x0a, 0x0e, 0x48, 0x74, 0x74, 0x70, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x55, 0x52, 0x4c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e,
+	0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x55, 0x52, 0x4c, 0x22, 0x06,
 	0x0a, 0x04, 0x4e, 0x75, 0x6c, 0x6c, 0x22, 0x4a, 0x0a, 0x0a, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63,
 	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x24, 0x0a, 0x0d, 0x44, 0x65, 0x76, 0x65, 0x6c, 0x6f, 0x70, 0x65,
 	0x72, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x44, 0x65, 0x76,
@@ -381,19 +623,41 @@ var file_remote_proto_rawDesc = []byte{
 	0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03,
 	0x6b, 0x65, 0x79, 0x12, 0x21, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x48, 0x74, 0x74, 0x70, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x52,
-	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x32, 0xb0, 0x01, 0x0a, 0x05, 0x50,
-	0x72, 0x6f, 0x78, 0x79, 0x12, 0x3f, 0x0a, 0x10, 0x46, 0x72, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x64,
-	0x45, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x13, 0x2e, 0x48, 0x74, 0x74, 0x70, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x1a, 0x14, 0x2e,
-	0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x57, 0x72, 0x61, 0x70,
-	0x70, 0x65, 0x72, 0x22, 0x00, 0x12, 0x36, 0x0a, 0x0e, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64,
-	0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x12, 0x0b, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63,
-	0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x13, 0x2e, 0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x22, 0x00, 0x30, 0x01, 0x12, 0x2e, 0x0a,
-	0x0b, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64, 0x53, 0x65, 0x6e, 0x64, 0x12, 0x14, 0x2e, 0x48,
-	0x74, 0x74, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x57, 0x72, 0x61, 0x70, 0x70,
-	0x65, 0x72, 0x1a, 0x05, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x22, 0x00, 0x28, 0x01, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x32, 0x95, 0x04, 0x0a, 0x05, 0x50,
+	0x72, 0x6f, 0x78, 0x79, 0x12, 0x54, 0x0a, 0x17, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65,
+	0x74, 0x46, 0x72, 0x6f, 0x6e, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x65, 0x72, 0x12,
+	0x1a, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65,
+	0x63, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x57, 0x65,
+	0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x65, 0x72,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x20, 0x57, 0x65,
+	0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64, 0x43, 0x6f,
+	0x6e, 0x6e, 0x65, 0x63, 0x74, 0x65, 0x72, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x12, 0x05,
+	0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x1a, 0x1a, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65,
+	0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x22, 0x00, 0x30, 0x01, 0x12, 0x45, 0x0a, 0x1d, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b,
+	0x65, 0x74, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74,
+	0x65, 0x72, 0x53, 0x65, 0x6e, 0x64, 0x12, 0x1b, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b,
+	0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x1a, 0x05, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x22, 0x00, 0x12, 0x3d, 0x0a, 0x11,
+	0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x46, 0x72, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x64, 0x12, 0x10, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x50, 0x61, 0x63,
+	0x6b, 0x65, 0x74, 0x1a, 0x10, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x50,
+	0x61, 0x63, 0x6b, 0x65, 0x74, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x12, 0x3c, 0x0a, 0x10, 0x57,
+	0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64, 0x12,
+	0x10, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x65,
+	0x74, 0x1a, 0x10, 0x2e, 0x57, 0x65, 0x62, 0x53, 0x6f, 0x63, 0x6b, 0x65, 0x74, 0x50, 0x61, 0x63,
+	0x6b, 0x65, 0x74, 0x22, 0x00, 0x28, 0x01, 0x30, 0x01, 0x12, 0x3f, 0x0a, 0x10, 0x46, 0x72, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x64, 0x45, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x13, 0x2e,
+	0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x57, 0x72, 0x61, 0x70, 0x70,
+	0x65, 0x72, 0x1a, 0x14, 0x2e, 0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x22, 0x00, 0x12, 0x36, 0x0a, 0x0e, 0x42, 0x61,
+	0x63, 0x6b, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x12, 0x0b, 0x2e, 0x43,
+	0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x13, 0x2e, 0x48, 0x74, 0x74, 0x70,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x22, 0x00,
+	0x30, 0x01, 0x12, 0x2e, 0x0a, 0x0b, 0x42, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64, 0x53, 0x65, 0x6e,
+	0x64, 0x12, 0x14, 0x2e, 0x48, 0x74, 0x74, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x57, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x1a, 0x05, 0x2e, 0x4e, 0x75, 0x6c, 0x6c, 0x22, 0x00,
+	0x28, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -408,32 +672,45 @@ func file_remote_proto_rawDescGZIP() []byte {
 	return file_remote_proto_rawDescData
 }
 
-var file_remote_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_remote_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_remote_proto_goTypes = []interface{}{
-	(*Null)(nil),                // 0: Null
-	(*Connection)(nil),          // 1: Connection
-	(*HttpRequestWrapper)(nil),  // 2: HttpRequestWrapper
-	(*HttpHeader)(nil),          // 3: HttpHeader
-	(*HttpResponseWrapper)(nil), // 4: HttpResponseWrapper
-	nil,                         // 5: HttpRequestWrapper.HeadersEntry
-	nil,                         // 6: HttpResponseWrapper.HeadersEntry
+	(*WebSocketConnecterRequest)(nil),  // 0: WebSocketConnecterRequest
+	(*WebSocketConnecterResponse)(nil), // 1: WebSocketConnecterResponse
+	(*WebSocketPacket)(nil),            // 2: WebSocketPacket
+	(*Null)(nil),                       // 3: Null
+	(*Connection)(nil),                 // 4: Connection
+	(*HttpRequestWrapper)(nil),         // 5: HttpRequestWrapper
+	(*HttpHeader)(nil),                 // 6: HttpHeader
+	(*HttpResponseWrapper)(nil),        // 7: HttpResponseWrapper
+	nil,                                // 8: HttpRequestWrapper.HeadersEntry
+	nil,                                // 9: HttpResponseWrapper.HeadersEntry
 }
 var file_remote_proto_depIdxs = []int32{
-	5, // 0: HttpRequestWrapper.Headers:type_name -> HttpRequestWrapper.HeadersEntry
-	6, // 1: HttpResponseWrapper.Headers:type_name -> HttpResponseWrapper.HeadersEntry
-	3, // 2: HttpRequestWrapper.HeadersEntry.value:type_name -> HttpHeader
-	3, // 3: HttpResponseWrapper.HeadersEntry.value:type_name -> HttpHeader
-	2, // 4: Proxy.FrontendEndpoint:input_type -> HttpRequestWrapper
-	1, // 5: Proxy.BackendReceive:input_type -> Connection
-	4, // 6: Proxy.BackendSend:input_type -> HttpResponseWrapper
-	4, // 7: Proxy.FrontendEndpoint:output_type -> HttpResponseWrapper
-	2, // 8: Proxy.BackendReceive:output_type -> HttpRequestWrapper
-	0, // 9: Proxy.BackendSend:output_type -> Null
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	8,  // 0: HttpRequestWrapper.Headers:type_name -> HttpRequestWrapper.HeadersEntry
+	9,  // 1: HttpResponseWrapper.Headers:type_name -> HttpResponseWrapper.HeadersEntry
+	6,  // 2: HttpRequestWrapper.HeadersEntry.value:type_name -> HttpHeader
+	6,  // 3: HttpResponseWrapper.HeadersEntry.value:type_name -> HttpHeader
+	0,  // 4: Proxy.WebSocketFrontConnecter:input_type -> WebSocketConnecterRequest
+	3,  // 5: Proxy.WebSocketBackendConnecterReceive:input_type -> Null
+	1,  // 6: Proxy.WebSocketBackendConnecterSend:input_type -> WebSocketConnecterResponse
+	2,  // 7: Proxy.WebSocketFrontend:input_type -> WebSocketPacket
+	2,  // 8: Proxy.WebSocketBackend:input_type -> WebSocketPacket
+	5,  // 9: Proxy.FrontendEndpoint:input_type -> HttpRequestWrapper
+	4,  // 10: Proxy.BackendReceive:input_type -> Connection
+	7,  // 11: Proxy.BackendSend:input_type -> HttpResponseWrapper
+	1,  // 12: Proxy.WebSocketFrontConnecter:output_type -> WebSocketConnecterResponse
+	0,  // 13: Proxy.WebSocketBackendConnecterReceive:output_type -> WebSocketConnecterRequest
+	3,  // 14: Proxy.WebSocketBackendConnecterSend:output_type -> Null
+	2,  // 15: Proxy.WebSocketFrontend:output_type -> WebSocketPacket
+	2,  // 16: Proxy.WebSocketBackend:output_type -> WebSocketPacket
+	7,  // 17: Proxy.FrontendEndpoint:output_type -> HttpResponseWrapper
+	5,  // 18: Proxy.BackendReceive:output_type -> HttpRequestWrapper
+	3,  // 19: Proxy.BackendSend:output_type -> Null
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_remote_proto_init() }
@@ -443,7 +720,7 @@ func file_remote_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_remote_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Null); i {
+			switch v := v.(*WebSocketConnecterRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -455,7 +732,7 @@ func file_remote_proto_init() {
 			}
 		}
 		file_remote_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Connection); i {
+			switch v := v.(*WebSocketConnecterResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -467,7 +744,7 @@ func file_remote_proto_init() {
 			}
 		}
 		file_remote_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HttpRequestWrapper); i {
+			switch v := v.(*WebSocketPacket); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -479,7 +756,7 @@ func file_remote_proto_init() {
 			}
 		}
 		file_remote_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HttpHeader); i {
+			switch v := v.(*Null); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -491,6 +768,42 @@ func file_remote_proto_init() {
 			}
 		}
 		file_remote_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Connection); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_remote_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HttpRequestWrapper); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_remote_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HttpHeader); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_remote_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HttpResponseWrapper); i {
 			case 0:
 				return &v.state
@@ -509,7 +822,7 @@ func file_remote_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_remote_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -535,6 +848,11 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ProxyClient interface {
+	WebSocketFrontConnecter(ctx context.Context, in *WebSocketConnecterRequest, opts ...grpc.CallOption) (*WebSocketConnecterResponse, error)
+	WebSocketBackendConnecterReceive(ctx context.Context, in *Null, opts ...grpc.CallOption) (Proxy_WebSocketBackendConnecterReceiveClient, error)
+	WebSocketBackendConnecterSend(ctx context.Context, in *WebSocketConnecterResponse, opts ...grpc.CallOption) (*Null, error)
+	WebSocketFrontend(ctx context.Context, opts ...grpc.CallOption) (Proxy_WebSocketFrontendClient, error)
+	WebSocketBackend(ctx context.Context, opts ...grpc.CallOption) (Proxy_WebSocketBackendClient, error)
 	FrontendEndpoint(ctx context.Context, in *HttpRequestWrapper, opts ...grpc.CallOption) (*HttpResponseWrapper, error)
 	BackendReceive(ctx context.Context, in *Connection, opts ...grpc.CallOption) (Proxy_BackendReceiveClient, error)
 	BackendSend(ctx context.Context, opts ...grpc.CallOption) (Proxy_BackendSendClient, error)
@@ -548,6 +866,118 @@ func NewProxyClient(cc grpc.ClientConnInterface) ProxyClient {
 	return &proxyClient{cc}
 }
 
+func (c *proxyClient) WebSocketFrontConnecter(ctx context.Context, in *WebSocketConnecterRequest, opts ...grpc.CallOption) (*WebSocketConnecterResponse, error) {
+	out := new(WebSocketConnecterResponse)
+	err := c.cc.Invoke(ctx, "/Proxy/WebSocketFrontConnecter", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *proxyClient) WebSocketBackendConnecterReceive(ctx context.Context, in *Null, opts ...grpc.CallOption) (Proxy_WebSocketBackendConnecterReceiveClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[0], "/Proxy/WebSocketBackendConnecterReceive", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &proxyWebSocketBackendConnecterReceiveClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Proxy_WebSocketBackendConnecterReceiveClient interface {
+	Recv() (*WebSocketConnecterRequest, error)
+	grpc.ClientStream
+}
+
+type proxyWebSocketBackendConnecterReceiveClient struct {
+	grpc.ClientStream
+}
+
+func (x *proxyWebSocketBackendConnecterReceiveClient) Recv() (*WebSocketConnecterRequest, error) {
+	m := new(WebSocketConnecterRequest)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *proxyClient) WebSocketBackendConnecterSend(ctx context.Context, in *WebSocketConnecterResponse, opts ...grpc.CallOption) (*Null, error) {
+	out := new(Null)
+	err := c.cc.Invoke(ctx, "/Proxy/WebSocketBackendConnecterSend", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *proxyClient) WebSocketFrontend(ctx context.Context, opts ...grpc.CallOption) (Proxy_WebSocketFrontendClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[1], "/Proxy/WebSocketFrontend", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &proxyWebSocketFrontendClient{stream}
+	return x, nil
+}
+
+type Proxy_WebSocketFrontendClient interface {
+	Send(*WebSocketPacket) error
+	Recv() (*WebSocketPacket, error)
+	grpc.ClientStream
+}
+
+type proxyWebSocketFrontendClient struct {
+	grpc.ClientStream
+}
+
+func (x *proxyWebSocketFrontendClient) Send(m *WebSocketPacket) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *proxyWebSocketFrontendClient) Recv() (*WebSocketPacket, error) {
+	m := new(WebSocketPacket)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *proxyClient) WebSocketBackend(ctx context.Context, opts ...grpc.CallOption) (Proxy_WebSocketBackendClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[2], "/Proxy/WebSocketBackend", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &proxyWebSocketBackendClient{stream}
+	return x, nil
+}
+
+type Proxy_WebSocketBackendClient interface {
+	Send(*WebSocketPacket) error
+	Recv() (*WebSocketPacket, error)
+	grpc.ClientStream
+}
+
+type proxyWebSocketBackendClient struct {
+	grpc.ClientStream
+}
+
+func (x *proxyWebSocketBackendClient) Send(m *WebSocketPacket) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *proxyWebSocketBackendClient) Recv() (*WebSocketPacket, error) {
+	m := new(WebSocketPacket)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *proxyClient) FrontendEndpoint(ctx context.Context, in *HttpRequestWrapper, opts ...grpc.CallOption) (*HttpResponseWrapper, error) {
 	out := new(HttpResponseWrapper)
 	err := c.cc.Invoke(ctx, "/Proxy/FrontendEndpoint", in, out, opts...)
@@ -558,7 +988,7 @@ func (c *proxyClient) FrontendEndpoint(ctx context.Context, in *HttpRequestWrapp
 }
 
 func (c *proxyClient) BackendReceive(ctx context.Context, in *Connection, opts ...grpc.CallOption) (Proxy_BackendReceiveClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[0], "/Proxy/BackendReceive", opts...)
+	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[3], "/Proxy/BackendReceive", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -590,7 +1020,7 @@ func (x *proxyBackendReceiveClient) Recv() (*HttpRequestWrapper, error) {
 }
 
 func (c *proxyClient) BackendSend(ctx context.Context, opts ...grpc.CallOption) (Proxy_BackendSendClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[1], "/Proxy/BackendSend", opts...)
+	stream, err := c.cc.NewStream(ctx, &_Proxy_serviceDesc.Streams[4], "/Proxy/BackendSend", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -625,6 +1055,11 @@ func (x *proxyBackendSendClient) CloseAndRecv() (*Null, error) {
 
 // ProxyServer is the server API for Proxy service.
 type ProxyServer interface {
+	WebSocketFrontConnecter(context.Context, *WebSocketConnecterRequest) (*WebSocketConnecterResponse, error)
+	WebSocketBackendConnecterReceive(*Null, Proxy_WebSocketBackendConnecterReceiveServer) error
+	WebSocketBackendConnecterSend(context.Context, *WebSocketConnecterResponse) (*Null, error)
+	WebSocketFrontend(Proxy_WebSocketFrontendServer) error
+	WebSocketBackend(Proxy_WebSocketBackendServer) error
 	FrontendEndpoint(context.Context, *HttpRequestWrapper) (*HttpResponseWrapper, error)
 	BackendReceive(*Connection, Proxy_BackendReceiveServer) error
 	BackendSend(Proxy_BackendSendServer) error
@@ -634,6 +1069,21 @@ type ProxyServer interface {
 type UnimplementedProxyServer struct {
 }
 
+func (*UnimplementedProxyServer) WebSocketFrontConnecter(context.Context, *WebSocketConnecterRequest) (*WebSocketConnecterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WebSocketFrontConnecter not implemented")
+}
+func (*UnimplementedProxyServer) WebSocketBackendConnecterReceive(*Null, Proxy_WebSocketBackendConnecterReceiveServer) error {
+	return status.Errorf(codes.Unimplemented, "method WebSocketBackendConnecterReceive not implemented")
+}
+func (*UnimplementedProxyServer) WebSocketBackendConnecterSend(context.Context, *WebSocketConnecterResponse) (*Null, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WebSocketBackendConnecterSend not implemented")
+}
+func (*UnimplementedProxyServer) WebSocketFrontend(Proxy_WebSocketFrontendServer) error {
+	return status.Errorf(codes.Unimplemented, "method WebSocketFrontend not implemented")
+}
+func (*UnimplementedProxyServer) WebSocketBackend(Proxy_WebSocketBackendServer) error {
+	return status.Errorf(codes.Unimplemented, "method WebSocketBackend not implemented")
+}
 func (*UnimplementedProxyServer) FrontendEndpoint(context.Context, *HttpRequestWrapper) (*HttpResponseWrapper, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FrontendEndpoint not implemented")
 }
@@ -646,6 +1096,115 @@ func (*UnimplementedProxyServer) BackendSend(Proxy_BackendSendServer) error {
 
 func RegisterProxyServer(s *grpc.Server, srv ProxyServer) {
 	s.RegisterService(&_Proxy_serviceDesc, srv)
+}
+
+func _Proxy_WebSocketFrontConnecter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WebSocketConnecterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProxyServer).WebSocketFrontConnecter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Proxy/WebSocketFrontConnecter",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProxyServer).WebSocketFrontConnecter(ctx, req.(*WebSocketConnecterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Proxy_WebSocketBackendConnecterReceive_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Null)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ProxyServer).WebSocketBackendConnecterReceive(m, &proxyWebSocketBackendConnecterReceiveServer{stream})
+}
+
+type Proxy_WebSocketBackendConnecterReceiveServer interface {
+	Send(*WebSocketConnecterRequest) error
+	grpc.ServerStream
+}
+
+type proxyWebSocketBackendConnecterReceiveServer struct {
+	grpc.ServerStream
+}
+
+func (x *proxyWebSocketBackendConnecterReceiveServer) Send(m *WebSocketConnecterRequest) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _Proxy_WebSocketBackendConnecterSend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WebSocketConnecterResponse)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProxyServer).WebSocketBackendConnecterSend(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Proxy/WebSocketBackendConnecterSend",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProxyServer).WebSocketBackendConnecterSend(ctx, req.(*WebSocketConnecterResponse))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Proxy_WebSocketFrontend_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ProxyServer).WebSocketFrontend(&proxyWebSocketFrontendServer{stream})
+}
+
+type Proxy_WebSocketFrontendServer interface {
+	Send(*WebSocketPacket) error
+	Recv() (*WebSocketPacket, error)
+	grpc.ServerStream
+}
+
+type proxyWebSocketFrontendServer struct {
+	grpc.ServerStream
+}
+
+func (x *proxyWebSocketFrontendServer) Send(m *WebSocketPacket) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *proxyWebSocketFrontendServer) Recv() (*WebSocketPacket, error) {
+	m := new(WebSocketPacket)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _Proxy_WebSocketBackend_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ProxyServer).WebSocketBackend(&proxyWebSocketBackendServer{stream})
+}
+
+type Proxy_WebSocketBackendServer interface {
+	Send(*WebSocketPacket) error
+	Recv() (*WebSocketPacket, error)
+	grpc.ServerStream
+}
+
+type proxyWebSocketBackendServer struct {
+	grpc.ServerStream
+}
+
+func (x *proxyWebSocketBackendServer) Send(m *WebSocketPacket) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *proxyWebSocketBackendServer) Recv() (*WebSocketPacket, error) {
+	m := new(WebSocketPacket)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func _Proxy_FrontendEndpoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -718,11 +1277,36 @@ var _Proxy_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ProxyServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "WebSocketFrontConnecter",
+			Handler:    _Proxy_WebSocketFrontConnecter_Handler,
+		},
+		{
+			MethodName: "WebSocketBackendConnecterSend",
+			Handler:    _Proxy_WebSocketBackendConnecterSend_Handler,
+		},
+		{
 			MethodName: "FrontendEndpoint",
 			Handler:    _Proxy_FrontendEndpoint_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "WebSocketBackendConnecterReceive",
+			Handler:       _Proxy_WebSocketBackendConnecterReceive_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "WebSocketFrontend",
+			Handler:       _Proxy_WebSocketFrontend_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "WebSocketBackend",
+			Handler:       _Proxy_WebSocketBackend_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
 		{
 			StreamName:    "BackendReceive",
 			Handler:       _Proxy_BackendReceive_Handler,

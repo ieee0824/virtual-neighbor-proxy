@@ -35,6 +35,72 @@ type RelayServer struct {
 	remote.ProxyServer
 }
 
+var wsRequests = make(chan *remote.WebSocketConnecterRequest)
+var wsResponse = map[string]chan *remote.WebSocketConnecterResponse{}
+
+// frontからきたwebsocketコネクションをbackendにつなぐ
+func (s *RelayServer) WebSocketFrontConnecter(ctx context.Context, req *remote.WebSocketConnecterRequest) (*remote.WebSocketConnecterResponse, error) {
+	wsResponse[req.ConnectionId] = make(chan *remote.WebSocketConnecterResponse)
+	wsRequests <- req
+
+	return <-wsResponse[req.ConnectionId], nil
+}
+
+func (s *RelayServer) WebSocketBackendConnecterReceive(_ *remote.Null, stream remote.Proxy_WebSocketBackendConnecterReceiveServer) error {
+	for {
+		req, ok := <-wsRequests
+		if !ok {
+			return errors.New("close wsReq channel")
+		}
+		if err := stream.Send(req); err != nil {
+			return err
+		}
+	}
+}
+
+func (s *RelayServer) WebSocketBackendConnecterSend(ctx context.Context, resp *remote.WebSocketConnecterResponse) (*remote.Null, error) {
+	wsResponse[resp.ConnectionId] <- resp
+	return nil, nil
+}
+
+var wsToBack = make(chan *remote.WebSocketPacket)
+var wsToFront = make(chan *remote.WebSocketPacket)
+
+func (s *RelayServer) WebSocketFrontend(stream remote.Proxy_WebSocketFrontendServer) (err error) {
+	go func() {
+		for {
+			if err = stream.Send(<-wsToFront); err != nil {
+				return
+			}
+		}
+	}()
+	for {
+		frontPacket, err := stream.Recv()
+		if err != nil {
+			return err
+		}
+		wsToBack <- frontPacket
+	}
+}
+
+func (s *RelayServer) WebSocketBackend(stream remote.Proxy_WebSocketBackendServer) (err error) {
+	go func() {
+		for {
+			if err = stream.Send(<-wsToBack); err != nil {
+				return
+			}
+		}
+	}()
+
+	for {
+		backPacket, err := stream.Recv()
+		if err != nil {
+			return err
+		}
+		wsToFront <- backPacket
+	}
+}
+
 // frontからのリクエストを受ける
 // コネクションを作る
 // backendからのリクエストをrequest queue経由でフロントに返す

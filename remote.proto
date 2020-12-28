@@ -1,9 +1,35 @@
 syntax = "proto3";
 
 service Proxy {
+    rpc WebSocketFrontConnecter(WebSocketConnecterRequest) returns (WebSocketConnecterResponse) {}
+    rpc WebSocketBackendConnecterReceive(Null) returns (stream WebSocketConnecterRequest) {}
+    rpc WebSocketBackendConnecterSend(WebSocketConnecterResponse) returns (Null) {}
+    rpc WebSocketFrontend(stream WebSocketPacket) returns (stream WebSocketPacket) {}
+    rpc WebSocketBackend(stream WebSocketPacket) returns (stream WebSocketPacket) {}
     rpc FrontendEndpoint(HttpRequestWrapper) returns (HttpResponseWrapper) {}
     rpc BackendReceive (Connection) returns (stream HttpRequestWrapper){}
     rpc BackendSend(stream HttpResponseWrapper) returns (Null) {}
+}
+
+message WebSocketConnecterRequest {
+    string ConnectionId = 1;
+    bool Disconnect = 2;
+    string HttpMethod = 3;
+    string HttpRequestURL = 4;
+    string Domain = 5;
+}
+
+message WebSocketConnecterResponse {
+    string ConnectionId = 1;
+    string Status = 2;
+}
+
+message WebSocketPacket {
+    int32 MessageType = 1;
+    bytes Data = 2;
+    string ConnectionId = 3;
+    string MessageId = 4;
+    string HttpRequestURL = 5;
 }
 
 message Null {

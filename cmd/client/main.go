@@ -2,11 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/gorilla/websocket"
 	"github.com/ieee0824/virtual-neighbor-proxy/config"
 	"github.com/ieee0824/virtual-neighbor-proxy/remote"
 	"github.com/rs/zerolog/log"
@@ -14,6 +17,96 @@ import (
 )
 
 var defaultConfig = config.NewClientConfig()
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+}
+
+func ws(w http.ResponseWriter, r *http.Request) error {
+	connectionID := uuid.New()
+
+	fc, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		return err
+	}
+
+	conn, err := grpc.Dial(defaultConfig.RelayServerConfig.Addr(), grpc.WithInsecure())
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	client := remote.NewProxyClient(conn)
+
+	// 裏側でのweb socket connectionを確立する
+	connectionResult, err := client.WebSocketFrontConnecter(context.Background(), &remote.WebSocketConnecterRequest{
+		ConnectionId: connectionID.String(),
+	})
+	if err != nil {
+		return err
+	}
+	if connectionResult.ConnectionId != connectionID.String() {
+		return fmt.Errorf("connection id is not match: %s, %s", connectionID.String(), connectionResult.ConnectionId)
+	}
+
+	if connectionResult.Status != "Success" {
+		return fmt.Errorf("connection failed")
+	}
+
+	stream, err := client.WebSocketFrontend(context.Background())
+	if err != nil {
+		return err
+	}
+	var wg sync.WaitGroup
+
+	// WebSocketからもらってgRPCに投げるしょり
+	wg.Add(1)
+	go func(wg *sync.WaitGroup) {
+		defer wg.Done()
+		for {
+			msgType, msg, err := fc.ReadMessage()
+			if err != nil {
+				log.Error().Err(err).Msg("")
+				break
+			}
+
+			wsPacket := &remote.WebSocketPacket{
+				ConnectionId: connectionID.String(),
+				MessageType:  int32(msgType),
+				Data:         msg,
+				MessageId:    uuid.New().String(),
+			}
+
+			if err := stream.Send(wsPacket); err != nil {
+				log.Error().Err(err).Msg("")
+				break
+			}
+		}
+	}(&wg)
+
+	// gRPCからもらってWebSocketに投げる処理
+	wg.Add(1)
+	go func(wg *sync.WaitGroup) {
+		defer wg.Done()
+		for {
+			wsPacket, err := stream.Recv()
+			if err != nil {
+				log.Error().Err(err).Msg("")
+				break
+			}
+			if err := fc.WriteMessage(int(wsPacket.MessageType), wsPacket.Data); err != nil {
+				log.Error().Err(err).Msg("")
+				break
+			}
+		}
+
+	}(&wg)
+
+	wg.Wait()
+
+	return nil
+}
 
 func main() {
 	log.Logger = log.With().Caller().Logger()
@@ -24,9 +117,8 @@ func main() {
 	r.Any("*all", func(ctx *gin.Context) {
 		defer ctx.Request.Body.Close()
 		// websocketを無視
-		if h := ctx.Request.Header.Get("Upgrade"); h != "" {
-			ctx.JSON(http.StatusHTTPVersionNotSupported, nil)
-			ctx.Abort()
+		if h := ctx.Request.Header.Get("Upgrade"); h == "websocket" {
+			ws(ctx.Writer, ctx.Request)
 			return
 		}
 		conn, err := grpc.Dial(defaultConfig.RelayServerConfig.Addr(), grpc.WithInsecure())
